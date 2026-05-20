@@ -5,7 +5,7 @@ import { Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-import logo from "@/assets/logo-5.png";
+import logo from "@/assets/logoo.png";
 
 import { RxAvatar, RxCross2 } from "react-icons/rx";
 import { TfiAlignLeft } from "react-icons/tfi";
@@ -75,11 +75,11 @@ const Navbar = () => {
                 </ul>
                 <div className="flex items-center gap-2">
                     <div className="hidden md:flex gap-2">
-                        <Button className="rounded-sm bg-[#1B2F4F] text-white">
+                        <Button className="rounded-sm bg-[#816c4d] text-white">
                             Login
                         </Button>
 
-                        <Button className="rounded-sm bg-[#1B2F4F] text-white">
+                        <Button className="rounded-sm bg-[#816c4d] text-white">
                             Register
                         </Button>
                     </div>
@@ -103,11 +103,11 @@ const Navbar = () => {
             {isAuthMenuOpen && (
                 <div className="absolute right-4 top-20 z-50 md:hidden">
                     <div className="flex flex-col gap-3 rounded-xl shadow-lg border border-gray-200">
-                        <Button className="rounded-sm bg-[#1B2F4F] text-white">
+                        <Button className="rounded-sm bg-[#816c4d] text-white">
                             Login
                         </Button>
 
-                        <Button className="rounded-sm bg-[#1B2F4F] text-white">
+                        <Button className="rounded-sm bg-[#816c4d] text-white">
                             Register
                         </Button>
                     </div>
