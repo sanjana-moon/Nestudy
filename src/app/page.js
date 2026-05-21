@@ -1,9 +1,25 @@
 import Banner from "@/component/homePage/banner/Banner";
+import MembershipPage from "@/component/homePage/MembershipPage";
+import ReviewPage from "@/component/homePage/ReviewPage";
+import ScrollReveal from "@/component/homePage/ScrollReveal";
+import WhyChooseNestudy from "@/component/homePage/WhyChoosePage";
 
 export default function Home() {
   return (
     <div className="font-cinzel">
-      <Banner/>
+      <Banner />
+
+      <ScrollReveal>
+        <WhyChooseNestudy />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <ReviewPage />
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <MembershipPage />
+      </ScrollReveal>
     </div>
   );
 }

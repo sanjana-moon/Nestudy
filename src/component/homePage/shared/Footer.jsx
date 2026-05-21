@@ -16,18 +16,16 @@ import { RiTwitterXLine } from "react-icons/ri";
 const Footer = () => {
     return (
         <footer className="text-[#1B2F4F] font-fauna">
-            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 md:grid-cols-3">
+            <div className="mx-auto grid grid-cols-1 gap-10 container py-14 md:grid-cols-3">
                 <div>
                     <Image
                         src={logo}
                         alt="Nestudy Logo"
                         width={180}
                         height={120}
-                        className="mb-4 w-auto"/>
-
-                    <p className="max-w-sm text-sm leading-7">
-                        Nestudy helps students discover peaceful, distraction-free
-                        study rooms for better focus and productivity.
+                        className="mb-4 w-auto" />
+                    <p className="max-w-sm text-sm leading-7 italic">
+                        "Nestudy pairs dedicated scholars with refined, quiet sanctuaries—cultivating the ideal environment for deep focus and academic growth."
                     </p>
                 </div>
 
@@ -78,7 +76,9 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="border-t border-white/10 py-4 text-center text-sm text-gray-400">
+            <div className="border-b-2 border-[#6C91B2]"></div>
+
+            <div className="border-t border-white/10 py-4 text-center text-sm text-[#1B2F4F]">
                 © {new Date().getFullYear()} Nestudy. All rights reserved.
             </div>
 
