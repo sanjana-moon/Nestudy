@@ -49,7 +49,7 @@ export default function ReviewPage() {
     style.textContent = `
       @keyframes marquee {
         0%   { transform: translateX(0%); }
-        100% { transform: translateX(-50%); }
+        100% { transform: translateX(-30%); }
       }
       .marquee-track {
         animation: marquee 20s linear infinite;
@@ -63,11 +63,11 @@ export default function ReviewPage() {
   }, [])
 
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-16 bg-white overflow-hidden font-fauna">
 
       {/* Header */}
       <div className="text-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 font-cinzel">
           What Students Say
         </h2>
         <p className="text-gray-500 mt-2">
@@ -90,7 +90,7 @@ export default function ReviewPage() {
               </div>
               <p className="text-gray-600 mb-4">"{item.text}"</p>
               <div className="border-t pt-3">
-                <h4 className="font-semibold text-gray-800">{item.name}</h4>
+                <h4 className="font-semibold text-gray-800 font-cinzel">{item.name}</h4>
                 <p className="text-sm text-gray-500">{item.role}</p>
               </div>
             </div>

@@ -18,7 +18,7 @@ const Slide2 = () => {
 
             <div className="relative z-10 max-w-2xl px-6 text-center text-white animate__animated animate__fadeIn">
                 <h1 className="mb-5 text-3xl font-bold md:text-6xl font-cinze animate__animated animate__fadeIn">
-                    Let Your Knowledge Find Its Nest
+                    Let Your Knowledge <br /> Find Its Nest
                 </h1>
 
                 <p className="mb-6 text-lg text-gray-200 font-fauna">

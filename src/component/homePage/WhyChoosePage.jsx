@@ -75,7 +75,7 @@ const FeatureCard = ({ feature, reverse }) => {
                     {feature.title}
                 </h2>
 
-                <p className="mt-5 text-lg leading-8 text-gray-600">
+                <p className="mt-5 text-lg leading-8 text-gray-600 font-fauna">
                     {feature.description}
                 </p>
 
@@ -91,15 +91,15 @@ const WhyChooseNestudy = () => {
 
             <div className="mx-auto max-w-3xl text-center">
 
-                <p className="mb-3 text-lg uppercase tracking-[0.3em] text-[#816c4d]">
+                <p className="mb-3 text-lg uppercase tracking-[0.3em] text-[#816c4d] ">
                     Why Choose Nestudy
                 </p>
 
-                <h1 className="font-cinzel text-3xl font-bold text-[#1B2F4F] md:text-4xl">
+                <h1 className="font-cinzel text-3xl font-bold text-[#1B2F4F] md:text-5xl font-cinzel">
                     Designed For Better Learning
                 </h1>
 
-                <p className="mt-6 text-lg leading-8 text-gray-600">
+                <p className="mt-6 text-lg leading-8 text-gray-600 font-fauna">
                     Discover study spaces that help you focus deeply,
                     stay productive, and learn comfortably.
                 </p>

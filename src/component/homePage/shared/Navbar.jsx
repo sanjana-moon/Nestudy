@@ -85,11 +85,9 @@ const Navbar = () => {
                     </div>
                     <button
                         className="md:hidden"
-                        onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}
-                    >
+                        onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}>
                         <RxAvatar className="text-3xl text-[#1B2F4F]" />
                     </button>
-
                 </div>
             </header>
             {isMenuOpen && (

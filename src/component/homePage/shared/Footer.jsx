@@ -82,6 +82,8 @@ const Footer = () => {
                 © {new Date().getFullYear()} Nestudy. All rights reserved.
             </div>
 
+            
+
         </footer>
     );
 };
