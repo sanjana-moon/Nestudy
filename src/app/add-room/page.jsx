@@ -7,17 +7,19 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 const AddRooms = () => {
     const [selected, setSelected] = useState(new Set([]));
 
-    const onSubmit = async(e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
         const room = {
             ...Object.fromEntries(formData.entries()),
-            amenities: [...selected]
+            amenities: [...selected],
+            createdAt: new Date(),
+            bookingCount: 0,
         }
         console.log('room', room);
 
-        const res = await fetch(`http://localhost:5000/room`,{
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/room`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -26,7 +28,6 @@ const AddRooms = () => {
         })
         const data = await res.json()
         console.log('data', data);
-        
     };
 
     return (
