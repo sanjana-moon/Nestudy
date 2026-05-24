@@ -4,7 +4,6 @@ import React from 'react';
 const AllRooms = async() => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/room`)
     const rooms = await res.json()
-    console.log(rooms);
     
     return (
         <div className='container mx-auto py-10 font-fauna'>

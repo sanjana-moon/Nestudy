@@ -4,60 +4,90 @@ import { MdOutlinePeopleAlt } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
 
 const RoomCard = ({ room }) => {
-    const { roomName, imageUrl, hourlyRate, floor, capacity, amenities, description, _id } = room
 
-    // Short description (truncated to ~100 characters)
-    // Floor (e.g., “Floor 3”)
-    // Amenities shown as small chips (max 3, rest as “+X more”)
-    // “View Details” button → redirects to /rooms/:id
-
+    const {
+        roomName,
+        imageUrl,
+        hourlyRate,
+        floor,
+        capacity,
+        amenities,
+        _id,
+        ownerName,
+    } = room;
 
     return (
-        <div>
-            <Card className="rounded-sm bg-[#fdfaf5] font-fauna overflow-hidden shadow-sm space-y-2">
+        <div className="h-full">
+            <Card className="rounded-sm bg-[#fdfaf5] font-fauna overflow-hidden shadow-sm min-h-125 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group">
 
-                {/* Room Image */}
                 <div className="w-full h-60 overflow-hidden">
                     <img
                         alt={roomName}
                         src={imageUrl}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                     />
                 </div>
+                <div className="p-3 flex flex-col grow">
+                    <div className="space-y-4 grow">
+                        <div className="flex justify-between items-start gap-3">
+                            <h2 className="font-cinzel font-semibold text-lg text-[#3d3325] line-clamp-2  min-h-[50px]">
+                                {roomName}
+                            </h2>
 
-                {/* Content */}
-                <div className="p-3 space-y-3">
+                            <span className="text-xs px-2 py-1 bg-[#f1ebe2] rounded-sm text-[#6b573c] font-medium whitespace-nowrap">
+                                ${hourlyRate}/hr
+                            </span>
+                        </div>
 
-                    {/* Title + Rate */}
-                    <div className="flex justify-between items-center">
-                        <h2 className="font-cinzel font-semibold text-lg">{roomName}</h2>
-                        <span className="text-xs px-2 py-1 bg-[#f8f5f0] rounded-sm">
-                            ${hourlyRate}/hr
-                        </span>
+                        <div className="flex justify-between text-sm text-gray-600">
+                            <span className="line-clamp-1">{floor}</span>
+
+                            <p className="flex items-center gap-1 whitespace-nowrap">
+                                <MdOutlinePeopleAlt />
+                                {capacity} seats
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 pt-1 content-start">
+                            {
+                                amenities?.slice(0, 3).map((amenity, index) => (
+                                    <span
+                                        key={index}
+                                        className="text-[11px] px-2 py-1 bg-[#eee7dc] rounded-full text-[#5f4b32] transition-all duration-300 hover:bg-[#816c4d] hover:text-white cursor-pointer"
+                                    >
+                                        {amenity}
+                                    </span>
+                                ))
+                            }
+
+                            {
+                                amenities?.length > 3 && (
+                                    <span className="text-[11px] px-2 py-1 bg-[#d8cbb8] rounded-full text-[#5f4b32]">
+                                        +{amenities.length - 3} more
+                                    </span>
+                                )
+                            }
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <Avatar
+                                size="sm"
+                                name={ownerName}
+                                className="w-7 h-7 text-xs bg-[#d8cbb8] text-[#5f4b32]"
+                            />
+
+                            <span className="line-clamp-1">
+                                Managed by{" "}
+                                <span className="font-medium text-[#5f4b32]">
+                                    {ownerName}
+                                </span>
+                            </span>
+                        </div>
                     </div>
-
-                    {/* Floor + Capacity */}
-                    <div className="flex justify-between text-sm text-gray-600">
-                        <span>{floor}</span>
-                        <p className="flex items-center gap-1"> <MdOutlinePeopleAlt /> {capacity} seats</p>
-                    </div>
-
-                    {/* Amenities */}
-                    <div className="flex flex-wrap gap-2 pt-1">
-                        {
-                            amenities.map((amenity, index) => <span
-                                key={index}
-                                className="text-xs px-3 py-1 bg-[#eee7dc] rounded-full">
-                                {amenity}
-                            </span>)
-                        }
-                    </div>
-
-                    {/* Button */}
-                    <Link href={`/rooms/${_id}`}>
-                        <Button className="w-full mt-2 rounded-sm bg-[#816c4d] text-white font-medium">
-                           <TbListDetails /> View Details
+                    <Link href={`/all-rooms/${_id}`} className="mt-5">
+                        <Button className="w-full rounded-sm bg-[#816c4d] text-white font-medium transition-all duration-300 hover:bg-[#6d5a40] hover:scale-[1.02]">
+                            <TbListDetails />
+                            View Details
                         </Button>
                     </Link>
                 </div>

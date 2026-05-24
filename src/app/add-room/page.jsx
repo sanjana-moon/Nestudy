@@ -16,6 +16,7 @@ const AddRooms = () => {
             amenities: [...selected],
             createdAt: new Date(),
             bookingCount: 0,
+            ownerName: "Sanjana Moon"
         }
         console.log('room', room);
 
