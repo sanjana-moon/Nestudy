@@ -12,6 +12,10 @@ import logo from "@/assets/logoo.png";
 import { RxAvatar, RxCross2 } from "react-icons/rx";
 import { TfiAlignLeft } from "react-icons/tfi";
 import { authClient } from "@/lib/auth-client";
+import { LiaUserEditSolid } from "react-icons/lia";
+import { MdLogin, MdLogout } from "react-icons/md";
+// import { AiOutlineUserAdd } from "react-icons/ai";
+import { LuUserRoundPlus } from "react-icons/lu";
 
 const Navbar = () => {
 
@@ -23,6 +27,10 @@ const Navbar = () => {
     } = authClient.useSession()
     const user = session?.user;
     console.log(user);
+
+    const handleSignOut = async () => {
+        await authClient.signOut();
+    }
 
     const pathname = usePathname();
 
@@ -98,7 +106,8 @@ const Navbar = () => {
                                 </Avatar>
                             </li>
                             <li>
-                                <Button className="rounded-sm bg-[#816c4d] text-white">
+                                <Button onClick={handleSignOut} className="rounded-sm bg-[#816c4d] text-white">
+                                    <MdLogout />
                                     Logout
                                 </Button>
                             </li>
@@ -106,12 +115,14 @@ const Navbar = () => {
                             <div className="hidden md:flex gap-2">
                                 <Link href="/login" className={'no-underline'}>
                                     <Button className="rounded-sm bg-[#816c4d] text-white">
+                                        <MdLogin />
                                         Login
                                     </Button>
                                 </Link>
 
                                 <Link href="/signup" className={'no-underline'}>
                                     <Button className="rounded-sm bg-[#816c4d] text-white">
+                                        <LuUserRoundPlus />
                                         Register
                                     </Button>
                                 </Link>
@@ -123,13 +134,10 @@ const Navbar = () => {
                     >
                         {
                             user ? (
-                                <Image
-                                    src={user.image || "https://i.ibb.co/4pDNDk1/avatar.png"}
-                                    alt="user"
-                                    width={40}
-                                    height={40}
-                                    className="rounded-full border-2 border-[#816c4d]"
-                                />
+                                <Avatar>
+                                    <Avatar.Image alt={user.name} src={user.image} />
+                                    <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                </Avatar>
                             ) : (
                                 <RxAvatar className="text-3xl text-[#1B2F4F]" />
                             )
@@ -143,6 +151,7 @@ const Navbar = () => {
                         user ? <ul className="flex flex-col gap-3 p-4">
                             {links}
                             {loggedInLinks}
+                            <li>Edit Profile</li>
                         </ul> :
                             <ul className="flex flex-col gap-3 p-4">
                                 {links}
@@ -158,13 +167,10 @@ const Navbar = () => {
                             user ? (
                                 <>
                                     <div className="flex flex-col items-center gap-2 border-b pb-3">
-                                        <Image
-                                            src={user.image || "https://i.ibb.co/4pDNDk1/avatar.png"}
-                                            alt="user"
-                                            width={60}
-                                            height={60}
-                                            className="rounded-full"
-                                        />
+                                        <Avatar>
+                                            <Avatar.Image alt={user.name} src={user.image} />
+                                            <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                        </Avatar>
                                         <h2 className="font-semibold">
                                             Hi, {user.name}
                                         </h2>
@@ -174,11 +180,14 @@ const Navbar = () => {
                                     </div>
                                     <Button
                                         className="rounded-sm bg-[#816c4d] text-white w-full" >
+                                        <LiaUserEditSolid />
                                         Edit Profile
                                     </Button>
 
                                     <Button
-                                        className="rounded-sm bg-red-500 text-white w-full">
+                                        onClick={handleSignOut}
+                                        className="rounded-sm bg-[#816c4d] text-white w-full">
+                                        <MdLogout />
                                         Logout
                                     </Button>
                                 </>
@@ -186,12 +195,14 @@ const Navbar = () => {
                                 <>
                                     <Link href="/login" className="no-underline">
                                         <Button className="w-full rounded-sm bg-[#816c4d] text-white w-full">
+                                            <MdLogin />
                                             Login
                                         </Button>
                                     </Link>
 
                                     <Link href="/signup" className="no-underline">
                                         <Button className="w-full rounded-sm bg-[#816c4d] text-white w-full">
+                                            <AiOutlineUserAdd />
                                             Register
                                         </Button>
                                     </Link>
