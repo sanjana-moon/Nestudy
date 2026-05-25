@@ -4,6 +4,7 @@ import { MdOutlinePeopleAlt } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { TbEdit, TbTrash } from "react-icons/tb";
 import { IoBookOutline } from "react-icons/io5";
+import { EditRoomModal } from "@/component/EditRoomModal";
 
 const BookDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -27,6 +28,7 @@ const BookDetailsPage = async ({ params }) => {
         description,
         bookingCount,
         ownerName,
+        createdAt
     } = room;
 
     return (
@@ -112,22 +114,16 @@ const BookDetailsPage = async ({ params }) => {
                                 {ownerName}
                             </span>
                         </p>
+                        <p>
+                            Created At:{" "}
+                            {new Date(createdAt).toLocaleString()}
+                        </p>
 
                         <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-6 justify-end">
                             <Button className="bg-[#816c4d] text-white px-8 rounded-md transition-all duration-300 hover:bg-[#6d5a40] hover:scale-105 shadow-sm hover:shadow-md">
                                 Book Now
                             </Button>
-
-                            {/* Edit */}
-                            <Button
-                                variant="bordered"
-                                className="border-[#816c4d] text-[#816c4d] rounded-md transition-all duration-300 hover:bg-[#816c4d] hover:text-white hover:scale-105"
-                            >
-                                <TbEdit size={18} />
-                                Edit
-                            </Button>
-
-                            {/* Delete */}
+                            <EditRoomModal room={room} />
                             <Button
                                 color="danger"
                                 variant="bordered"
