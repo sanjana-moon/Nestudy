@@ -53,6 +53,7 @@ const AddRooms = () => {
                     className="w-full max-w-3xl rounded-2xl bg-[#f8f5f0] p-8 shadow-lg md:p-10"
                     onSubmit={onSubmit}>
                     <div className="grid gap-6 md:grid-cols-2">
+                        
 
                         <TextField
                             isRequired

@@ -1,7 +1,9 @@
 "use client";
 
+
+
 import { useState } from "react";
-import { Button, Link } from "@heroui/react";
+import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
@@ -9,11 +11,18 @@ import logo from "@/assets/logoo.png";
 
 import { RxAvatar, RxCross2 } from "react-icons/rx";
 import { TfiAlignLeft } from "react-icons/tfi";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
+
+    const {
+        data: session,
+    } = authClient.useSession()
+    const user = session?.user;
+    console.log(user);
 
     const pathname = usePathname();
 
@@ -50,7 +59,7 @@ const Navbar = () => {
             <header className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-4">
                     <button
-                        className="md:hidden"
+                        className="lg:hidden"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         aria-label="Toggle menu"
                     >
@@ -69,45 +78,126 @@ const Navbar = () => {
                     />
 
                 </div>
-                <ul className="hidden md:flex items-center gap-6">
-                    {links}
-                    {loggedInLinks}
-                </ul>
+                {
+                    user ? <ul className="hidden lg:flex items-center gap-6">
+                        {links}
+                        {loggedInLinks}
+                    </ul> :
+                        <ul className="hidden lg:flex items-center gap-6">
+                            {links}
+                        </ul>
+                }
                 <div className="flex items-center gap-2">
-                    <div className="hidden md:flex gap-2">
-                        <Button className="rounded-sm bg-[#816c4d] text-white">
-                            Login
-                        </Button>
+                    {
+                        user ? <div className="hidden lg:flex items-center gap-2 list-none">
+                            <li>Hi, {user.name}</li>
+                            <li>
+                                <Avatar>
+                                    <Avatar.Image alt={user.name} src={user.image} />
+                                    <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                </Avatar>
+                            </li>
+                            <li>
+                                <Button className="rounded-sm bg-[#816c4d] text-white">
+                                    Logout
+                                </Button>
+                            </li>
+                        </div> :
+                            <div className="hidden md:flex gap-2">
+                                <Link href="/login" className={'no-underline'}>
+                                    <Button className="rounded-sm bg-[#816c4d] text-white">
+                                        Login
+                                    </Button>
+                                </Link>
 
-                        <Button className="rounded-sm bg-[#816c4d] text-white">
-                            Register
-                        </Button>
-                    </div>
+                                <Link href="/signup" className={'no-underline'}>
+                                    <Button className="rounded-sm bg-[#816c4d] text-white">
+                                        Register
+                                    </Button>
+                                </Link>
+                            </div>
+                    }
                     <button
-                        className="md:hidden"
-                        onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}>
-                        <RxAvatar className="text-3xl text-[#1B2F4F]" />
+                        className="lg:hidden"
+                        onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}
+                    >
+                        {
+                            user ? (
+                                <Image
+                                    src={user.image || "https://i.ibb.co/4pDNDk1/avatar.png"}
+                                    alt="user"
+                                    width={40}
+                                    height={40}
+                                    className="rounded-full border-2 border-[#816c4d]"
+                                />
+                            ) : (
+                                <RxAvatar className="text-3xl text-[#1B2F4F]" />
+                            )
+                        }
                     </button>
                 </div>
             </header>
             {isMenuOpen && (
-                <div className="border-t border-separator md:hidden">
-                    <ul className="flex flex-col gap-3 p-4">
-                        {links}
-                        {loggedInLinks}
-                    </ul>
+                <div className="border-t border-separator lg:hidden">
+                    {
+                        user ? <ul className="flex flex-col gap-3 p-4">
+                            {links}
+                            {loggedInLinks}
+                        </ul> :
+                            <ul className="flex flex-col gap-3 p-4">
+                                {links}
+                            </ul>
+                    }
                 </div>
             )}
             {isAuthMenuOpen && (
-                <div className="absolute right-4 top-20 z-50 md:hidden">
-                    <div className="flex flex-col gap-3 rounded-xl shadow-lg border border-gray-200">
-                        <Button className="rounded-sm bg-[#816c4d] text-white">
-                            Login
-                        </Button>
+                <div className="absolute right-4 top-20 z-50 lg:hidden">
+                    <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-lg border border-gray-200 min-w-[180px]">
 
-                        <Button className="rounded-sm bg-[#816c4d] text-white">
-                            Register
-                        </Button>
+                        {
+                            user ? (
+                                <>
+                                    <div className="flex flex-col items-center gap-2 border-b pb-3">
+                                        <Image
+                                            src={user.image || "https://i.ibb.co/4pDNDk1/avatar.png"}
+                                            alt="user"
+                                            width={60}
+                                            height={60}
+                                            className="rounded-full"
+                                        />
+                                        <h2 className="font-semibold">
+                                            Hi, {user.name}
+                                        </h2>
+                                        <p className="text-sm text-gray-500">
+                                            {user.email}
+                                        </p>
+                                    </div>
+                                    <Button
+                                        className="rounded-sm bg-[#816c4d] text-white w-full" >
+                                        Edit Profile
+                                    </Button>
+
+                                    <Button
+                                        className="rounded-sm bg-red-500 text-white w-full">
+                                        Logout
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="/login" className="no-underline">
+                                        <Button className="w-full rounded-sm bg-[#816c4d] text-white w-full">
+                                            Login
+                                        </Button>
+                                    </Link>
+
+                                    <Link href="/signup" className="no-underline">
+                                        <Button className="w-full rounded-sm bg-[#816c4d] text-white w-full">
+                                            Register
+                                        </Button>
+                                    </Link>
+                                </>
+                            )
+                        }
                     </div>
                 </div>
             )}

@@ -1,3 +1,6 @@
+// import dns from "node:dns";
+// dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 import { Cinzel, Fauna_One, } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/component/homePage/shared/Navbar";
@@ -31,7 +34,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <ToastContainer />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );
