@@ -2,6 +2,7 @@ import { Cinzel, Fauna_One, } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/component/homePage/shared/Navbar";
 import Footer from "@/component/homePage/shared/Footer";
+import { ToastContainer } from "react-toastify";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
+        <ToastContainer />
         {children}
         <Footer/>
       </body>

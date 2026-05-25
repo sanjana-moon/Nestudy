@@ -1,8 +1,10 @@
 "use client";
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextArea, TextField, Dropdown, Header } from "@heroui/react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const AddRooms = () => {
     const [selected, setSelected] = useState(new Set([]));
@@ -29,6 +31,8 @@ const AddRooms = () => {
         })
         const data = await res.json()
         console.log('data', data);
+        toast.success(`"${room.roomName}" added Successfully!`)
+        redirect('/')
     };
 
     return (
@@ -98,7 +102,7 @@ const AddRooms = () => {
                             <Input placeholder="e.g. 5" />
                             <FieldError />
                         </TextField>
-                        
+
                         <div className="flex flex-col gap-2">
                             <Label className="text-sm font-medium text-black">
                                 Amenities

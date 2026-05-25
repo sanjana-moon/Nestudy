@@ -20,6 +20,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { TbEdit } from "react-icons/tb";
+import { toast } from "react-toastify";
 
 export function EditRoomModal({ room }) {
 
@@ -62,6 +63,7 @@ export function EditRoomModal({ room }) {
             body: JSON.stringify(room)
         })
         const data = await res.json()
+        toast.success(`${roomName} updated Successfully`)
         redirect(`/all-rooms/${_id}`)
     };
 
@@ -70,7 +72,7 @@ export function EditRoomModal({ room }) {
 
             <Button
                 variant="bordered"
-                className="border-[#816c4d] text-[#816c4d] rounded-md transition-all duration-300 hover:bg-[#816c4d] hover:text-white hover:scale-105">
+                className="border-[#816c4d] text-[#816c4d] bg-[#eee7dc] px-5 rounded-md transition-all duration-300 hover:bg-[#816c4d] hover:text-white hover:scale-105">
                 <TbEdit size={18} />
                 Edit
             </Button>

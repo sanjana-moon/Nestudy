@@ -5,6 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { TbEdit, TbTrash } from "react-icons/tb";
 import { IoBookOutline } from "react-icons/io5";
 import { EditRoomModal } from "@/component/EditRoomModal";
+import { DeleteRoomAlert } from "@/component/DeleteRoomAlert";
 
 const BookDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -124,14 +125,8 @@ const BookDetailsPage = async ({ params }) => {
                                 Book Now
                             </Button>
                             <EditRoomModal room={room} />
-                            <Button
-                                color="danger"
-                                variant="bordered"
-                                className="rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md text-red-500"
-                            >
-                                <TbTrash size={18} />
-                                Delete
-                            </Button>
+                            <DeleteRoomAlert room={room}/>
+                            
                         </div>
                     </div>
                 </Card>
