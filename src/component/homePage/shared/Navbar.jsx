@@ -1,20 +1,16 @@
 "use client";
 
-
-
 import { useState } from "react";
 import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-
 import logo from "@/assets/logoo.png";
-
 import { RxAvatar, RxCross2 } from "react-icons/rx";
 import { TfiAlignLeft } from "react-icons/tfi";
 import { authClient } from "@/lib/auth-client";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { MdLogin, MdLogout } from "react-icons/md";
-// import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import { LuUserRoundPlus } from "react-icons/lu";
 
 const Navbar = () => {
@@ -26,7 +22,6 @@ const Navbar = () => {
         data: session,
     } = authClient.useSession()
     const user = session?.user;
-    console.log(user);
 
     const handleSignOut = async () => {
         await authClient.signOut();
@@ -101,7 +96,9 @@ const Navbar = () => {
                             <li>Hi, {user.name}</li>
                             <li>
                                 <Avatar>
-                                    <Avatar.Image alt={user.name} src={user.image} />
+                                    <Avatar.Image
+                                        referrerPolicy="no-referrer"
+                                        alt={user.name} src={user.image} />
                                     <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
                                 </Avatar>
                             </li>
@@ -135,7 +132,9 @@ const Navbar = () => {
                         {
                             user ? (
                                 <Avatar>
-                                    <Avatar.Image alt={user.name} src={user.image} />
+                                    <Avatar.Image
+                                        referrerPolicy="no-referrer"
+                                        alt={user.name} src={user.image} />
                                     <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
                                 </Avatar>
                             ) : (
@@ -168,7 +167,9 @@ const Navbar = () => {
                                 <>
                                     <div className="flex flex-col items-center gap-2 border-b pb-3">
                                         <Avatar>
-                                            <Avatar.Image alt={user.name} src={user.image} />
+                                            <Avatar.Image
+                                                referrerPolicy="no-referrer"
+                                                alt={user.name} src={user.image} />
                                             <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
                                         </Avatar>
                                         <h2 className="font-semibold">

@@ -2,12 +2,11 @@ import { Button, Card } from "@heroui/react";
 import Image from "next/image";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-import { TbEdit, TbTrash } from "react-icons/tb";
 import { IoBookOutline } from "react-icons/io5";
 import { EditRoomModal } from "@/component/EditRoomModal";
 import { DeleteRoomAlert } from "@/component/DeleteRoomAlert";
 
-const BookDetailsPage = async ({ params }) => {
+const RoomDetailsPage = async ({ params }) => {
     const { id } = await params;
 
     const res = await fetch(
@@ -120,13 +119,14 @@ const BookDetailsPage = async ({ params }) => {
                             {new Date(createdAt).toLocaleString()}
                         </p>
 
-                        <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-6 justify-end">
+                        <div className="flex flex-col-reverse sm:flex-row-reverse flex-wrap gap-4 pt-6">
                             <Button className="bg-[#816c4d] text-white px-8 rounded-md transition-all duration-300 hover:bg-[#6d5a40] hover:scale-105 shadow-sm hover:shadow-md">
                                 Book Now
                             </Button>
-                            <EditRoomModal room={room} />
-                            <DeleteRoomAlert room={room}/>
-                            
+                            <div className="flex gap-2">
+                                <EditRoomModal room={room} />
+                                <DeleteRoomAlert room={room} />
+                            </div>
                         </div>
                     </div>
                 </Card>
@@ -135,4 +135,4 @@ const BookDetailsPage = async ({ params }) => {
     );
 };
 
-export default BookDetailsPage;
+export default RoomDetailsPage;
