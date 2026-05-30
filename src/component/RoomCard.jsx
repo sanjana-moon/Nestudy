@@ -1,4 +1,5 @@
 import { Avatar, Button, Card } from "@heroui/react";
+import Image from "next/image";
 import Link from "next/link";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { TbListDetails } from "react-icons/tb";
@@ -14,6 +15,7 @@ const RoomCard = ({ room }) => {
         amenities,
         _id,
         ownerName,
+        ownerImage
     } = room;
 
     return (
@@ -21,9 +23,11 @@ const RoomCard = ({ room }) => {
             <Card className="rounded-sm bg-[#fdfaf5] font-fauna overflow-hidden shadow-sm min-h-125 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl group">
 
                 <div className="w-full h-60 overflow-hidden">
-                    <img
+                    <Image
                         alt={roomName}
                         src={imageUrl}
+                        height={240}
+                        width={400}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                     />
@@ -70,11 +74,14 @@ const RoomCard = ({ room }) => {
                             }
                         </div>
                         <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <Avatar
-                                size="sm"
-                                name={ownerName}
-                                className="w-7 h-7 text-xs bg-[#d8cbb8] text-[#5f4b32]"
-                            />
+                            <Avatar>
+                                <Avatar.Image
+                                    referrerPolicy="no-referrer"
+                                    alt={ownerName}
+                                    src={ownerImage}
+                                />
+                                <Avatar.Fallback>{ownerName?.charAt(0)}</Avatar.Fallback>
+                            </Avatar>
 
                             <span className="line-clamp-1">
                                 Managed by{" "}

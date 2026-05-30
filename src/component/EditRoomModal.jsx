@@ -33,6 +33,7 @@ export function EditRoomModal({ room }) {
         capacity,
         amenities,
         description,
+        ownerName
     } = room;
 
     const [selected, setSelected] = useState(new Set([]));
@@ -51,9 +52,8 @@ export function EditRoomModal({ room }) {
             ...Object.fromEntries(formData.entries()),
             amenities: [...selected],
             bookingCount: 0,
-            ownerName: "Sanjana Moon"
+            ownerName
         }
-        console.log('room', room);
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/room/${_id}`, {
             method: 'PATCH',

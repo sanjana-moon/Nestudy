@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -14,18 +14,22 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { LuUserRoundPlus } from "react-icons/lu";
 
 const Navbar = () => {
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     const {
-        data: session,
-    } = authClient.useSession()
+        data: session
+    } = authClient.useSession();
     const user = session?.user;
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const handleSignOut = async () => {
         await authClient.signOut();
-    }
+    };
 
     const pathname = usePathname();
 
@@ -34,7 +38,6 @@ const Navbar = () => {
             <li className={`${pathname === "/" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/">Home</Link>
             </li>
-
             <li className={`${pathname === "/all-rooms" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/all-rooms">Rooms</Link>
             </li>
@@ -46,15 +49,36 @@ const Navbar = () => {
             <li className={`${pathname === "/add-room" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/add-room">Add Room</Link>
             </li>
-
             <li className={`${pathname === "/my-listings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/my-listings">My Listings</Link>
             </li>
-
             <li className={`${pathname === "/my-bookings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/my-bookings">My Bookings</Link>
             </li>
         </>
+    );
+
+    const loggedOutDesktopNav = (
+        <ul className="hidden lg:flex items-center gap-6">
+            {links}
+        </ul>
+    );
+
+    const loggedOutDesktopAuth = (
+        <div className="hidden md:flex gap-2">
+            <Link href="/login" className="no-underline">
+                <Button className="rounded-sm bg-[#816c4d] text-white">
+                    <MdLogin />
+                    Login
+                </Button>
+            </Link>
+            <Link href="/signup" className="no-underline">
+                <Button className="rounded-sm bg-[#816c4d] text-white">
+                    <LuUserRoundPlus />
+                    Register
+                </Button>
+            </Link>
+        </div>
     );
 
     return (
@@ -66,7 +90,7 @@ const Navbar = () => {
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         aria-label="Toggle menu"
                     >
-                        {isMenuOpen ? (
+                        {isMounted && isMenuOpen ? (
                             <RxCross2 className="text-2xl" />
                         ) : (
                             <TfiAlignLeft className="text-2xl" />
@@ -79,137 +103,126 @@ const Navbar = () => {
                         height={120}
                         className="h-auto"
                     />
-
                 </div>
-                {
-                    user ? <ul className="hidden lg:flex items-center gap-6">
-                        {links}
-                        {loggedInLinks}
-                    </ul> :
+
+                {isMounted ? (
+                    user ? (
                         <ul className="hidden lg:flex items-center gap-6">
                             {links}
+                            {loggedInLinks}
                         </ul>
-                }
-                <div className="flex items-center gap-2">
-                    {
-                        user ? <div className="hidden lg:flex items-center gap-2 list-none">
-                            <li>Hi, {user.name}</li>
-                            <li>
-                                <Avatar>
-                                    <Avatar.Image
-                                        referrerPolicy="no-referrer"
-                                        alt={user.name} src={user.image} />
-                                    <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-                                </Avatar>
-                            </li>
-                            <li>
-                                <Button onClick={handleSignOut} className="rounded-sm bg-[#816c4d] text-white">
-                                    <MdLogout />
-                                    Logout
-                                </Button>
-                            </li>
-                        </div> :
-                            <div className="hidden md:flex gap-2">
-                                <Link href="/login" className={'no-underline'}>
-                                    <Button className="rounded-sm bg-[#816c4d] text-white">
-                                        <MdLogin />
-                                        Login
-                                    </Button>
-                                </Link>
+                    ) : loggedOutDesktopNav
+                ) : loggedOutDesktopNav}
 
-                                <Link href="/signup" className={'no-underline'}>
-                                    <Button className="rounded-sm bg-[#816c4d] text-white">
-                                        <LuUserRoundPlus />
-                                        Register
+                <div className="flex items-center gap-2">
+                    {isMounted ? (
+                        user ? (
+                            <div className="hidden lg:flex items-center gap-2 list-none">
+                                <li>Hi, {user.name}</li>
+                                <li>
+                                    <Avatar>
+                                        <Avatar.Image
+                                            referrerPolicy="no-referrer"
+                                            alt={user.name}
+                                            src={user.image}
+                                        />
+                                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                    </Avatar>
+                                </li>
+                                <li>
+                                    <Button
+                                        onClick={handleSignOut}
+                                        className="rounded-sm bg-[#816c4d] text-white"
+                                    >
+                                        <MdLogout />
+                                        Logout
                                     </Button>
-                                </Link>
+                                </li>
                             </div>
-                    }
+                        ) : loggedOutDesktopAuth
+                    ) : loggedOutDesktopAuth}
+
                     <button
                         className="lg:hidden"
                         onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}
                     >
-                        {
-                            user ? (
-                                <Avatar>
-                                    <Avatar.Image
-                                        referrerPolicy="no-referrer"
-                                        alt={user.name} src={user.image} />
-                                    <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-                                </Avatar>
-                            ) : (
-                                <RxAvatar className="text-3xl text-[#1B2F4F]" />
-                            )
-                        }
+                        {isMounted && user ? (
+                            <Avatar>
+                                <Avatar.Image
+                                    referrerPolicy="no-referrer"
+                                    alt={user.name}
+                                    src={user.image}
+                                />
+                                <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                            </Avatar>
+                        ) : (
+                            <RxAvatar className="text-3xl text-[#1B2F4F]" />
+                        )}
                     </button>
                 </div>
             </header>
-            {isMenuOpen && (
+
+            {isMounted && isMenuOpen && (
                 <div className="border-t border-separator lg:hidden">
-                    {
-                        user ? <ul className="flex flex-col gap-3 p-4">
+                    {user ? (
+                        <ul className="flex flex-col gap-3 p-4">
                             {links}
                             {loggedInLinks}
                             <li>Edit Profile</li>
-                        </ul> :
-                            <ul className="flex flex-col gap-3 p-4">
-                                {links}
-                            </ul>
-                    }
+                        </ul>
+                    ) : (
+                        <ul className="flex flex-col gap-3 p-4">
+                            {links}
+                        </ul>
+                    )}
                 </div>
             )}
-            {isAuthMenuOpen && (
+
+            {isMounted && isAuthMenuOpen && (
                 <div className="absolute right-4 top-20 z-50 lg:hidden">
                     <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-lg border border-gray-200 min-w-[180px]">
-
-                        {
-                            user ? (
-                                <>
-                                    <div className="flex flex-col items-center gap-2 border-b pb-3">
-                                        <Avatar>
-                                            <Avatar.Image
-                                                referrerPolicy="no-referrer"
-                                                alt={user.name} src={user.image} />
-                                            <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-                                        </Avatar>
-                                        <h2 className="font-semibold">
-                                            Hi, {user.name}
-                                        </h2>
-                                        <p className="text-sm text-gray-500">
-                                            {user.email}
-                                        </p>
-                                    </div>
-                                    <Button
-                                        className="rounded-sm bg-[#816c4d] text-white w-full" >
-                                        <LiaUserEditSolid />
-                                        Edit Profile
+                        {user ? (
+                            <>
+                                <div className="flex flex-col items-center gap-2 border-b pb-3">
+                                    <Avatar>
+                                        <Avatar.Image
+                                            referrerPolicy="no-referrer"
+                                            alt={user.name}
+                                            src={user.image}
+                                        />
+                                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                    </Avatar>
+                                    <h2 className="font-semibold">Hi, {user.name}</h2>
+                                    <p className="text-sm text-gray-500">{user.email}</p>
+                                </div>
+                                <Button className="rounded-sm bg-[#816c4d] text-white w-full">
+                                    <LiaUserEditSolid />
+                                    Edit Profile
+                                </Button>
+                                <Button
+                                    onClick={handleSignOut}
+                                    className="rounded-sm bg-[#816c4d] text-white w-full"
+                                >
+                                    <MdLogout />
+                                    Logout
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Link href="/login" className="no-underline">
+                                    <Button className="w-full rounded-sm bg-[#816c4d] text-white">
+                                        <MdLogin />
+                                        Login
                                     </Button>
-
-                                    <Button
-                                        onClick={handleSignOut}
-                                        className="rounded-sm bg-[#816c4d] text-white w-full">
-                                        <MdLogout />
-                                        Logout
+                                </Link>
+                                <Link href="/signup" className="no-underline">
+                                    <Button className="w-full rounded-sm bg-[#816c4d] text-white">
+                                        <AiOutlineUserAdd />
+                                        Register
                                     </Button>
-                                </>
-                            ) : (
-                                <>
-                                    <Link href="/login" className="no-underline">
-                                        <Button className="w-full rounded-sm bg-[#816c4d] text-white w-full">
-                                            <MdLogin />
-                                            Login
-                                        </Button>
-                                    </Link>
-
-                                    <Link href="/signup" className="no-underline">
-                                        <Button className="w-full rounded-sm bg-[#816c4d] text-white w-full">
-                                            <AiOutlineUserAdd />
-                                            Register
-                                        </Button>
-                                    </Link>
-                                </>
-                            )
-                        }
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

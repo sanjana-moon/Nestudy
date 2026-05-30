@@ -5,6 +5,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import { IoBookOutline } from "react-icons/io5";
 import { EditRoomModal } from "@/component/EditRoomModal";
 import { DeleteRoomAlert } from "@/component/DeleteRoomAlert";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import BookRoomModal from "@/component/BookRoomModal";
 
 const RoomDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -15,8 +18,12 @@ const RoomDetailsPage = async ({ params }) => {
             cache: "no-store",
         }
     );
-
     const room = await res.json();
+
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+    const user = session?.user;
 
     const {
         roomName,
@@ -28,30 +35,28 @@ const RoomDetailsPage = async ({ params }) => {
         description,
         bookingCount,
         ownerName,
-        createdAt
+        createdAt,
+        ownerImage,
+        ownerEmail
     } = room;
 
     return (
-        <div className="min-h-[80vh] bg-gradient-to-b from-[#fdfaf5] to-[#f5efe6] py-14 px-4">
+        <div className="min-h-[80vh] bg-linear-to-b from-[#fdfaf5] to-[#f5efe6] py-14 px-4">
             <div className="container mx-auto">
 
                 <Card className="grid lg:grid-cols-2 gap-10 p-5 lg:p-8 rounded-xl shadow-md bg-[#f8f5f0] font-fauna transition-all duration-300 hover:shadow-xl">
 
-                    {/* Image */}
                     <div className="w-full overflow-hidden rounded-lg">
                         <Image
                             alt={roomName}
                             src={imageUrl}
                             height={700}
                             width={700}
-                            className="w-full h-[500px] object-cover rounded-lg transition-transform duration-500 hover:scale-105"
+                            className="w-full h-125 object-cover rounded-lg transition-transform duration-500 hover:scale-105"
                         />
                     </div>
 
-                    {/* Content */}
                     <div className="space-y-6 divide-y divide-[#e8dfd2] font-fauna">
-
-                        {/* Title */}
                         <div className="space-y-3 pb-4">
                             <h1 className="text-4xl lg:text-5xl font-bold font-cinzel text-[#3d3325] leading-tight">
                                 {roomName}
@@ -120,13 +125,13 @@ const RoomDetailsPage = async ({ params }) => {
                         </p>
 
                         <div className="flex flex-col-reverse sm:flex-row-reverse flex-wrap gap-4 pt-6">
-                            <Button className="bg-[#816c4d] text-white px-8 rounded-md transition-all duration-300 hover:bg-[#6d5a40] hover:scale-105 shadow-sm hover:shadow-md">
-                                Book Now
-                            </Button>
-                            <div className="flex gap-2">
-                                <EditRoomModal room={room} />
-                                <DeleteRoomAlert room={room} />
-                            </div>
+                            <BookRoomModal room={room} />
+                            {
+                                ownerEmail === user?.email ? (<div className="flex gap-2">
+                                    <EditRoomModal room={room} />
+                                    <DeleteRoomAlert room={room} />
+                                </div>) : ""
+                            }
                         </div>
                     </div>
                 </Card>

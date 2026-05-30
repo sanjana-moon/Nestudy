@@ -1,4 +1,5 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextArea, TextField, Dropdown, Header } from "@heroui/react";
 import { redirect } from "next/navigation";
@@ -9,6 +10,13 @@ import { toast } from "react-toastify";
 const AddRooms = () => {
     const [selected, setSelected] = useState(new Set([]));
 
+    const {
+        data: session,
+    } = authClient.useSession()
+    const user = session?.user;
+    console.log('user', user);
+    
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -18,7 +26,9 @@ const AddRooms = () => {
             amenities: [...selected],
             createdAt: new Date(),
             bookingCount: 0,
-            ownerName: "Sanjana Moon"
+            ownerName: user?.name,
+            ownerEmail: user?.email,
+            ownerImage: user?.image
         }
         console.log('room', room);
 
@@ -53,7 +63,7 @@ const AddRooms = () => {
                     className="w-full max-w-3xl rounded-2xl bg-[#f8f5f0] p-8 shadow-lg md:p-10"
                     onSubmit={onSubmit}>
                     <div className="grid gap-6 md:grid-cols-2">
-                        
+
 
                         <TextField
                             isRequired

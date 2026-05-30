@@ -17,11 +17,9 @@ const LoginPage = () => {
             email: user.email,
             password: user.password,
         })
-        console.log({ data, error });
-
 
         if (data) {
-            toast.success("Registration successful")
+            toast.success("Login successful")
             redirect('/')
         }
         else if (error) {
@@ -33,6 +31,7 @@ const LoginPage = () => {
         await authClient.signIn.social({
             provider: "google"
         })
+        toast.success("Signin with successful")
     }
 
     return (

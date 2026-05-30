@@ -33,6 +33,7 @@ const SignupPage = () => {
         await authClient.signIn.social({
             provider: "google"
         })
+        toast.success("Signin successful")
     }
 
     return (
