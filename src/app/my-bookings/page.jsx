@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
 import { Button, Card, Chip } from "@heroui/react";
+import CancelBookingButton from "@/component/CancelBookingButton";
 
 const MyBookingPage = async () => {
     const session = await auth.api.getSession({
@@ -133,11 +134,10 @@ const MyBookingPage = async () => {
 
                                         {canCancel && (
                                             <div className="pt-2 flex justify-end mt-5">
-                                                <Button
-                                                    className="bg-[#816c4d] px-8 text-white hover:bg-[#6e5c42] font-bold rounded-sm">
-                                                    Cancel
-                                                    Booking
-                                                </Button>
+                                                <CancelBookingButton
+                                                    bookingId={booking._id}
+                                                    userId={user.id}
+                                                />
                                             </div>
                                         )}
                                     </div>
