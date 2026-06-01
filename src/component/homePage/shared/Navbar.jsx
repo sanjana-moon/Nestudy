@@ -18,10 +18,10 @@ const Navbar = () => {
     const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
-    const {
-        data: session
-    } = authClient.useSession();
+    const { data: session } = authClient.useSession();
     const user = session?.user;
+
+    const pathname = usePathname();
 
     useEffect(() => {
         setIsMounted(true);
@@ -31,64 +31,54 @@ const Navbar = () => {
         await authClient.signOut();
     };
 
-    const pathname = usePathname();
-
-    const links = (
+    const navLinks = (
         <>
-            <li className={`${pathname === "/" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+            <li
+                className={`${pathname === "/" ? "border-b-2 border-[#1B2F4F]" : ""
+                    }`}
+            >
                 <Link href="/">Home</Link>
             </li>
-            <li className={`${pathname === "/all-rooms" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+
+            <li
+                className={`${pathname === "/all-rooms" ? "border-b-2 border-[#1B2F4F]" : ""
+                    }`}
+            >
                 <Link href="/all-rooms">Rooms</Link>
             </li>
-        </>
-    );
 
-    const loggedInLinks = (
-        <>
-            <li className={`${pathname === "/add-room" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+            <li
+                className={`${pathname === "/add-room" ? "border-b-2 border-[#1B2F4F]" : ""
+                    }`}
+            >
                 <Link href="/add-room">Add Room</Link>
             </li>
-            <li className={`${pathname === "/my-listings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+
+            <li
+                className={`${pathname === "/my-listings" ? "border-b-2 border-[#1B2F4F]" : ""
+                    }`}
+            >
                 <Link href="/my-listings">My Listings</Link>
             </li>
-            <li className={`${pathname === "/my-bookings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+
+            <li
+                className={`${pathname === "/my-bookings" ? "border-b-2 border-[#1B2F4F]" : ""
+                    }`}
+            >
                 <Link href="/my-bookings">My Bookings</Link>
             </li>
         </>
     );
 
-    const loggedOutDesktopNav = (
-        <ul className="hidden lg:flex items-center gap-6">
-            {links}
-        </ul>
-    );
-
-    const loggedOutDesktopAuth = (
-        <div className="hidden md:flex gap-2">
-            <Link href="/login" className="no-underline">
-                <Button className="rounded-sm bg-[#816c4d] text-white">
-                    <MdLogin />
-                    Login
-                </Button>
-            </Link>
-            <Link href="/signup" className="no-underline">
-                <Button className="rounded-sm bg-[#816c4d] text-white">
-                    <LuUserRoundPlus />
-                    Register
-                </Button>
-            </Link>
-        </div>
-    );
-
     return (
         <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg font-fauna">
             <header className="flex items-center justify-between px-4 py-3">
+                {/* Left Side */}
                 <div className="flex items-center gap-4">
                     <button
                         className="lg:hidden"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Toggle menu"
+                        aria-label="Toggle Menu"
                     >
                         {isMounted && isMenuOpen ? (
                             <RxCross2 className="text-2xl" />
@@ -96,64 +86,92 @@ const Navbar = () => {
                             <TfiAlignLeft className="text-2xl" />
                         )}
                     </button>
-                    <Image
-                        src={logo}
-                        alt="logo"
-                        width={180}
-                        height={120}
-                        className="h-auto"
-                    />
+
+                    <Link href="/">
+                        <Image
+                            src={logo}
+                            alt="Logo"
+                            width={180}
+                            height={120}
+                            className="h-auto"
+                        />
+                    </Link>
                 </div>
 
-                {isMounted ? (
-                    user ? (
-                        <ul className="hidden lg:flex items-center gap-6">
-                            {links}
-                            {loggedInLinks}
-                        </ul>
-                    ) : loggedOutDesktopNav
-                ) : loggedOutDesktopNav}
+                {/* Desktop Navigation */}
+                <ul className="hidden lg:flex items-center gap-6">
+                    {navLinks}
+                </ul>
 
+                {/* Right Side */}
                 <div className="flex items-center gap-2">
-                    {isMounted ? (
-                        user ? (
-                            <div className="hidden lg:flex items-center gap-2 list-none">
-                                <li>Hi, {user.name}</li>
-                                <li>
-                                    <Avatar>
-                                        <Avatar.Image
-                                            referrerPolicy="no-referrer"
-                                            alt={user.name}
-                                            src={user.image}
-                                        />
-                                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-                                    </Avatar>
-                                </li>
-                                <li>
-                                    <Button
-                                        onClick={handleSignOut}
-                                        className="rounded-sm bg-[#816c4d] text-white"
-                                    >
-                                        <MdLogout />
-                                        Logout
-                                    </Button>
-                                </li>
-                            </div>
-                        ) : loggedOutDesktopAuth
-                    ) : loggedOutDesktopAuth}
+                    {isMounted &&
+                        (user ? (
+                            <div className="hidden lg:flex items-center gap-3">
+                                <span className="font-medium">
+                                    Hi, {user.name}
+                                </span>
 
+                                <Avatar>
+                                    <Avatar.Image
+                                        referrerPolicy="no-referrer"
+                                        src={user.image}
+                                        alt={user.name}
+                                    />
+                                    <Avatar.Fallback>
+                                        {user?.name?.charAt(0)}
+                                    </Avatar.Fallback>
+                                </Avatar>
+
+                                <Button
+                                    onClick={handleSignOut}
+                                    className="rounded-sm bg-[#816c4d] text-white"
+                                >
+                                    <MdLogout />
+                                    Logout
+                                </Button>
+                            </div>
+                        ) : (
+                            <div className="hidden md:flex gap-2">
+                                <Link
+                                    href="/login"
+                                    className="no-underline"
+                                >
+                                    <Button className="rounded-sm bg-[#816c4d] text-white">
+                                        <MdLogin />
+                                        Login
+                                    </Button>
+                                </Link>
+
+                                <Link
+                                    href="/signup"
+                                    className="no-underline"
+                                >
+                                    <Button className="rounded-sm bg-[#816c4d] text-white">
+                                        <LuUserRoundPlus />
+                                        Register
+                                    </Button>
+                                </Link>
+                            </div>
+                        ))}
+
+                    {/* Mobile Auth Button */}
                     <button
                         className="lg:hidden"
-                        onClick={() => setIsAuthMenuOpen(!isAuthMenuOpen)}
+                        onClick={() =>
+                            setIsAuthMenuOpen(!isAuthMenuOpen)
+                        }
                     >
-                        {isMounted && user ? (
+                        {user ? (
                             <Avatar>
                                 <Avatar.Image
                                     referrerPolicy="no-referrer"
-                                    alt={user.name}
                                     src={user.image}
+                                    alt={user.name}
                                 />
-                                <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                <Avatar.Fallback>
+                                    {user?.name?.charAt(0)}
+                                </Avatar.Fallback>
                             </Avatar>
                         ) : (
                             <RxAvatar className="text-3xl text-[#1B2F4F]" />
@@ -162,46 +180,63 @@ const Navbar = () => {
                 </div>
             </header>
 
+            {/* Mobile Navigation Menu */}
             {isMounted && isMenuOpen && (
                 <div className="border-t border-separator lg:hidden">
-                    {user ? (
-                        <ul className="flex flex-col gap-3 p-4">
-                            {links}
-                            {loggedInLinks}
-                            <li>Edit Profile</li>
-                        </ul>
-                    ) : (
-                        <ul className="flex flex-col gap-3 p-4">
-                            {links}
-                        </ul>
-                    )}
+                    <ul className="flex flex-col gap-4 p-4">
+                        {navLinks}
+
+                        {user && (
+                            <li>
+                                <Link href="/profile">
+                                    Edit Profile
+                                </Link>
+                            </li>
+                        )}
+                    </ul>
                 </div>
             )}
 
+            {/* Mobile Auth Menu */}
             {isMounted && isAuthMenuOpen && (
                 <div className="absolute right-4 top-20 z-50 lg:hidden">
-                    <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-lg border border-gray-200 min-w-[180px]">
+                    <div className="flex min-w-[220px] flex-col gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
                         {user ? (
                             <>
                                 <div className="flex flex-col items-center gap-2 border-b pb-3">
-                                    <Avatar>
+                                    <Avatar size="lg">
                                         <Avatar.Image
                                             referrerPolicy="no-referrer"
-                                            alt={user.name}
                                             src={user.image}
+                                            alt={user.name}
                                         />
-                                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                        <Avatar.Fallback>
+                                            {user?.name?.charAt(0)}
+                                        </Avatar.Fallback>
                                     </Avatar>
-                                    <h2 className="font-semibold">Hi, {user.name}</h2>
-                                    <p className="text-sm text-gray-500">{user.email}</p>
+
+                                    <h2 className="font-semibold">
+                                        {user.name}
+                                    </h2>
+
+                                    <p className="text-sm text-gray-500">
+                                        {user.email}
+                                    </p>
                                 </div>
-                                <Button className="rounded-sm bg-[#816c4d] text-white w-full">
-                                    <LiaUserEditSolid />
-                                    Edit Profile
-                                </Button>
+
+                                <Link
+                                    href="/profile"
+                                    className="no-underline"
+                                >
+                                    <Button className="w-full rounded-sm bg-[#816c4d] text-white">
+                                        <LiaUserEditSolid />
+                                        Edit Profile
+                                    </Button>
+                                </Link>
+
                                 <Button
                                     onClick={handleSignOut}
-                                    className="rounded-sm bg-[#816c4d] text-white w-full"
+                                    className="w-full rounded-sm bg-[#816c4d] text-white"
                                 >
                                     <MdLogout />
                                     Logout
@@ -209,13 +244,20 @@ const Navbar = () => {
                             </>
                         ) : (
                             <>
-                                <Link href="/login" className="no-underline">
+                                <Link
+                                    href="/login"
+                                    className="no-underline"
+                                >
                                     <Button className="w-full rounded-sm bg-[#816c4d] text-white">
                                         <MdLogin />
                                         Login
                                     </Button>
                                 </Link>
-                                <Link href="/signup" className="no-underline">
+
+                                <Link
+                                    href="/signup"
+                                    className="no-underline"
+                                >
                                     <Button className="w-full rounded-sm bg-[#816c4d] text-white">
                                         <AiOutlineUserAdd />
                                         Register

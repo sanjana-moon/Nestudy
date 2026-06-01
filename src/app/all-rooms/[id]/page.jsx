@@ -11,12 +11,18 @@ import BookRoomModal from "@/component/BookRoomModal";
 
 const RoomDetailsPage = async ({ params }) => {
     const { id } = await params;
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+    console.log(token);
+
 
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/room/${id}`,
-        {
-            cache: "no-store",
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/room/${id}`, {
+        headers: {
+            authorization: `Bearer ${token}`
         }
+    }
     );
     const room = await res.json();
 
