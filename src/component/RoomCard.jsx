@@ -53,7 +53,7 @@ const RoomCard = ({ room }) => {
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-2 pt-1 content-start">
+                        <div className="flex flex-wrap gap-2 pt-1 items-center content-start min-h-[61px]">
                             {
                                 amenities?.slice(0, 3).map((amenity, index) => (
                                     <span

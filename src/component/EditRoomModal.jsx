@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Check } from "@gravity-ui/icons";
 import {
     Button,
@@ -55,10 +56,12 @@ export function EditRoomModal({ room }) {
             ownerName
         }
 
+        const { data: tokenData } = await authClient.token();
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/room/${_id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${tokenData?.token}`,
             },
             body: JSON.stringify(room)
         })

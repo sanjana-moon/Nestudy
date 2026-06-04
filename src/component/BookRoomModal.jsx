@@ -17,8 +17,11 @@ import { toast } from "react-toastify";
 import { MdEventAvailable } from "react-icons/md";
 import { BsCalendarPlus } from "react-icons/bs";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const BookRoomModal = ({ room }) => {
+    const router = useRouter();
+
     const {
         _id,
         roomName,
@@ -65,12 +68,16 @@ const BookRoomModal = ({ room }) => {
             endHour,
             note,
         };
+        const { data: tokenData } = await authClient.token()
 
         try {
             setLoading(true);
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/booking`, {
                 method: "POST",
-                headers: { "content-type": "application/json" },
+                headers: {
+                    "content-type": "application/json",
+                    authorization: `Bearer ${tokenData?.token}`
+                },
                 body: JSON.stringify(bookingData),
             });
             const data = await res.json();
@@ -82,6 +89,7 @@ const BookRoomModal = ({ room }) => {
 
             toast.success("Room booked successfully!");
             resetForm();
+            router.refresh();
             document.querySelector("[slot='close']")?.click();
 
         } catch {
@@ -113,7 +121,6 @@ const BookRoomModal = ({ room }) => {
                                 >
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
 
-                                        {/* Date Picker */}
                                         <DatePicker
                                             value={date}
                                             minValue={today(getLocalTimeZone())}
@@ -159,7 +166,6 @@ const BookRoomModal = ({ room }) => {
                                             </DatePicker.Popover>
                                         </DatePicker>
 
-                                        {/* Total Cost */}
                                         <div className="rounded-xl border bg-white p-4 flex flex-col justify-center">
                                             <p className="text-sm text-gray-500">Total Cost</p>
                                             <h2 className="text-3xl font-bold text-[#816c4d]">
@@ -172,7 +178,6 @@ const BookRoomModal = ({ room }) => {
                                             )}
                                         </div>
 
-                                        {/* Start Time */}
                                         <div className="flex flex-col gap-1">
                                             <label className="text-sm text-gray-600 font-medium">
                                                 Start Time <span className="text-red-500">*</span>
@@ -194,7 +199,6 @@ const BookRoomModal = ({ room }) => {
                                             </select>
                                         </div>
 
-                                        {/* End Time */}
                                         <div className="flex flex-col gap-1">
                                             <label className="text-sm text-gray-600 font-medium">
                                                 End Time <span className="text-red-500">*</span>
@@ -217,7 +221,6 @@ const BookRoomModal = ({ room }) => {
                                         </div>
                                     </div>
 
-                                    {/* Special Note */}
                                     <div className="mt-6 w-full">
                                         <TextArea
                                             className="w-full"
@@ -228,7 +231,6 @@ const BookRoomModal = ({ room }) => {
                                         />
                                     </div>
 
-                                    {/* Actions */}
                                     <div className="mt-10 flex flex-col gap-4 md:flex-row justify-end">
                                         <Button
                                             slot="close"

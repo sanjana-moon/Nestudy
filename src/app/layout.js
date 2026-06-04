@@ -3,8 +3,8 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 import { Cinzel, Fauna_One, } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/component/homePage/shared/Navbar";
-import Footer from "@/component/homePage/shared/Footer";
+import Navbar from "@/component/shared/Navbar";
+import Footer from "@/component/shared/Footer";
 import { ToastContainer } from "react-toastify";
 
 const cinzel = Cinzel({

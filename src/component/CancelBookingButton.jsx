@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
 export default function CancelBookingButton({ bookingId, userId }) {
     const [open, setOpen] = useState(false);
@@ -10,6 +11,8 @@ export default function CancelBookingButton({ bookingId, userId }) {
     const router = useRouter();
 
     const handleConfirm = async () => {
+        const {data: tokenData} = await authClient.token()
+
         setLoading(true);
         try {
             const res = await fetch(
@@ -17,7 +20,8 @@ export default function CancelBookingButton({ bookingId, userId }) {
                 {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        authorization : `Bearer ${tokenData?.token}`
                     },
                     body: JSON.stringify({
                         userId
