@@ -17,7 +17,6 @@ import {
     TextField,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
-
 import { useEffect, useState } from "react";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { TbEdit } from "react-icons/tb";
@@ -52,7 +51,6 @@ export function EditRoomModal({ room }) {
         const room = {
             ...Object.fromEntries(formData.entries()),
             amenities: [...selected],
-            bookingCount: 0,
             ownerName
         }
 

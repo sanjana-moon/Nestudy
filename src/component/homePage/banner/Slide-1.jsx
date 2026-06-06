@@ -3,6 +3,7 @@
 import hero from "@/assets/Hero-1.jpg"
 import { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
+import Link from "next/link";
 
 const Slide1 = () => {
 
@@ -33,14 +34,15 @@ const Slide1 = () => {
                 <p className="mb-6 text-lg text-gray-200 font-fauna">
                     Browse and book quiet, private study rooms in your library. List your own room and earn.
                 </p>
-                <animated.button
-                    style={styles}
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                    className="rounded-md bg-[#816c4d] px-6 py-3 text-white"
-                >
-                    Explore Rooms
-                </animated.button>
+                <Link href="/all-rooms">
+                    <animated.button
+                        style={styles}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        className="rounded-md bg-[#816c4d] px-6 py-3 text-white"
+                    >
+                        Explore Rooms
+                    </animated.button></Link>
             </div>
         </div>
     );

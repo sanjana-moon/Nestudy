@@ -1,9 +1,18 @@
 "use client";
 
-import { Button } from "@heroui/react";
 import hero from "@/assets/Hero-4.jpg"
+import { useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
+import Link from "next/link";
 
 const Slide4 = () => {
+
+    const [hovered, setHovered] = useState(false);
+    const styles = useSpring({
+        transform: hovered
+            ? "scale(1.08)"
+            : "scale(1)",
+    });
     return (
         <div
             className="relative flex min-h-[80vh] items-center justify-center bg-cover bg-center"
@@ -24,11 +33,16 @@ const Slide4 = () => {
                 <p className="mb-6 text-lg text-gray-200 font-fauna">
                     Discover environments built for clarity, focus, and deep work.
                 </p>
-                <Button
-                    size="lg"
-                    className="bg-[#816c4d] text-white font-medium hover:bg-[#6e5c42] rounded-sm">
-                    Explore Rooms
-                </Button>
+                <Link href="/all-rooms">
+                    <animated.button
+                        style={styles}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        className="rounded-md bg-[#816c4d] px-6 py-3 text-white"
+                    >
+                        Explore Rooms
+                    </animated.button>
+                </Link>
             </div>
         </div>
     );

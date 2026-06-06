@@ -64,7 +64,6 @@ const RoomCard = ({ room }) => {
                                     </span>
                                 ))
                             }
-
                             {
                                 amenities?.length > 3 && (
                                     <span className="text-[11px] px-2 py-1 bg-[#d8cbb8] rounded-full text-[#5f4b32]">

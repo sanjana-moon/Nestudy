@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Avatar, Button, Link } from "@heroui/react";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import Image from "next/image";
 import logo from "@/assets/logoo.png";
 import { RxAvatar, RxCross2 } from "react-icons/rx";
@@ -29,6 +29,7 @@ const Navbar = () => {
 
     const handleSignOut = async () => {
         await authClient.signOut();
+        redirect('/')
     };
 
     const pathname = usePathname();

@@ -4,6 +4,11 @@ import Image from "next/image";
 import { Button, Card, Chip } from "@heroui/react";
 import CancelBookingButton from "@/component/CancelBookingButton";
 
+export const metadata = {
+    title: "My Bookings | Nestudy",
+    description: "...",
+};
+
 const MyBookingPage = async () => {
     const session = await auth.api.getSession({
         headers: await headers(),

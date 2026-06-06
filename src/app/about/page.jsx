@@ -6,7 +6,6 @@ const About = () => {
         <section className="bg-[#f8f5f0] py-20 px-6 font-fauna">
             <div className="max-w-7xl mx-auto grid grid-cols-1 items-center gap-12 md:grid-cols-2">
 
-                {/* Image Section */}
                 <div className="overflow-hidden rounded-2xl shadow-lg">
                     <Image
                         src={aboutImg}
@@ -14,8 +13,6 @@ const About = () => {
                         className="h-full w-full object-cover"
                     />
                 </div>
-
-                {/* Content Section */}
                 <div>
 
                     <p className="mb-3 text-sm uppercase tracking-[4px] text-[#816c4d]">

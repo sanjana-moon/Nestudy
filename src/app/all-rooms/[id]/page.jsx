@@ -9,13 +9,36 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import BookRoomModal from "@/component/BookRoomModal";
 
+export async function generateMetadata({ params }) {
+    const { id } = await params;
+
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/room/${id}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
+    const room = await res.json();
+
+    return {
+        title: room.roomName,
+        description: room.description,
+        openGraph: {
+            title: room.roomName,
+            description: room.description,
+            images: [room.imageUrl],
+        },
+    };
+}
+
 const RoomDetailsPage = async ({ params }) => {
     const { id } = await params;
     const { token } = await auth.api.getToken({
         headers: await headers()
     })
     console.log(token);
-
 
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/room/${id}`, {
