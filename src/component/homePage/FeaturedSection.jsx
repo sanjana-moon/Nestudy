@@ -36,7 +36,7 @@ const FeaturedSection = async () => {
                     <Button
                         className="rounded-md bg-[#816c4d] px-6 py-3 text-white"
                     >
-                        Explore Rooms
+                        Explore All Rooms
                     </Button>
                 </Link>
             </div>

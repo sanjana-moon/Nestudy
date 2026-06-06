@@ -47,12 +47,18 @@ const Navbar = () => {
 
     const loggedInLinks = (
         <>
+            <li className={`${pathname === "/my-profile" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+                <Link href="/my-profile">My Profile</Link>
+            </li>
+
             <li className={`${pathname === "/add-room" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/add-room">Add Room</Link>
             </li>
+
             <li className={`${pathname === "/my-listings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/my-listings">My Listings</Link>
             </li>
+
             <li className={`${pathname === "/my-bookings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/my-bookings">My Bookings</Link>
             </li>
@@ -169,7 +175,6 @@ const Navbar = () => {
                         <ul className="flex flex-col gap-3 p-4">
                             {links}
                             {loggedInLinks}
-                            <li>Edit Profile</li>
                         </ul>
                     ) : (
                         <ul className="flex flex-col gap-3 p-4">
@@ -177,57 +182,62 @@ const Navbar = () => {
                         </ul>
                     )}
                 </div>
-            )}
+            )
+            }
 
-            {isMounted && isAuthMenuOpen && (
-                <div className="absolute right-4 top-20 z-50 lg:hidden">
-                    <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-lg border border-gray-200 min-w-[180px]">
-                        {user ? (
-                            <>
-                                <div className="flex flex-col items-center gap-2 border-b pb-3">
-                                    <Avatar>
-                                        <Avatar.Image
-                                            referrerPolicy="no-referrer"
-                                            alt={user.name}
-                                            src={user.image}
-                                        />
-                                        <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
-                                    </Avatar>
-                                    <h2 className="font-semibold">Hi, {user.name}</h2>
-                                    <p className="text-sm text-gray-500">{user.email}</p>
-                                </div>
-                                <Button className="rounded-sm bg-[#816c4d] text-white w-full">
-                                    <LiaUserEditSolid />
-                                    Edit Profile
-                                </Button>
-                                <Button
-                                    onClick={handleSignOut}
-                                    className="rounded-sm bg-[#816c4d] text-white w-full"
-                                >
-                                    <MdLogout />
-                                    Logout
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Link href="/login" className="no-underline">
-                                    <Button className="w-full rounded-sm bg-[#816c4d] text-white">
-                                        <MdLogin />
-                                        Login
+            {
+                isMounted && isAuthMenuOpen && (
+                    <div className="absolute right-4 top-20 z-50 lg:hidden">
+                        <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-lg border border-gray-200 min-w-[180px]">
+                            {user ? (
+                                <>
+                                    <div className="flex flex-col items-center gap-2 border-b pb-3">
+                                        <Avatar>
+                                            <Avatar.Image
+                                                referrerPolicy="no-referrer"
+                                                alt={user.name}
+                                                src={user.image}
+                                            />
+                                            <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
+                                        </Avatar>
+                                        <h2 className="font-semibold">Hi, {user.name}</h2>
+                                        <p className="text-sm text-gray-500">{user.email}</p>
+                                    </div>
+                                    <Link href="/my-profile" className="no-underline w-full">
+                                        <Button className="rounded-sm bg-[#816c4d] text-white w-full">
+                                            <LiaUserEditSolid />
+                                            My Profile
+                                        </Button>
+                                    </Link>
+                                    <Button
+                                        onClick={handleSignOut}
+                                        className="rounded-sm bg-[#816c4d] text-white w-full"
+                                    >
+                                        <MdLogout />
+                                        Logout
                                     </Button>
-                                </Link>
-                                <Link href="/signup" className="no-underline">
-                                    <Button className="w-full rounded-sm bg-[#816c4d] text-white">
-                                        <AiOutlineUserAdd />
-                                        Register
-                                    </Button>
-                                </Link>
-                            </>
-                        )}
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="/login" className="no-underline">
+                                        <Button className="w-full rounded-sm bg-[#816c4d] text-white">
+                                            <MdLogin />
+                                            Login
+                                        </Button>
+                                    </Link>
+                                    <Link href="/signup" className="no-underline">
+                                        <Button className="w-full rounded-sm bg-[#816c4d] text-white">
+                                            <AiOutlineUserAdd />
+                                            Register
+                                        </Button>
+                                    </Link>
+                                </>
+                            )}
+                        </div>
                     </div>
-                </div>
-            )}
-        </nav>
+                )
+            }
+        </nav >
     );
 };
 
