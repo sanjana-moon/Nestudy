@@ -1,6 +1,8 @@
 import { authClient } from "@/lib/auth-client";
 import { CgProfile } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
+import { LuSaveAll } from "react-icons/lu";
+import { TiCancelOutline } from "react-icons/ti";
 
 const UpdateProfile = () => {
 
@@ -15,12 +17,11 @@ const UpdateProfile = () => {
         })
     }
 
-
     return (
-        <div>
+        <div className=" flex items-center justify-center">
             <button className="btn bg-[#816c4d] text-white px-10 flex items-center gap-2 justify-center mx-auto rounded-sm my-3 py-1" onClick={() => document.getElementById('my_modal_5').showModal()}>
                 <FaEdit /> Edit profile</button>
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+            <dialog id="my_modal_5" className="modal modal-bottom m-auto p-8 rounded-sm sm:modal-middle">
                 <div className="modal-box">
                     <div className="rounded-xl bg-white p-5 md:p-10 lg:p-20">
                         <CgProfile className="text-5xl mb-3 text-[#384959]" />
@@ -49,15 +50,15 @@ const UpdateProfile = () => {
                                     placeholder="Enter your image URL"
                                 />
                             </fieldset>
-                            <button className="btn w-full bg-linear-to-r from-[#384959] to-[#88BDF2] text-white">
-                                Save changes
+                            <button className="btn w-full bg-[#816c4d] text-white rounded-sm py-1 flex items-center justify-center gap-2">
+                                <LuSaveAll /> Save changes
                             </button>
                         </form>
                     </div>
                     <div className=" flex justify-end">
-                        <button className="btn bg-linear-to-r from-[#384959] to-[#88BDF2] text-white"
+                        <button className="btn bg-[#816c4d] py-1 px-3 rounded-sm text-white flex items-center justify-center gap-1"
                             onClick={() => document.getElementById('my_modal_5').close()}>
-                            Cancel
+                            <TiCancelOutline /> Cancel
                         </button>
                     </div>
                 </div>
