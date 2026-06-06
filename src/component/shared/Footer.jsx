@@ -16,7 +16,7 @@ import { RiTwitterXLine } from "react-icons/ri";
 const Footer = () => {
     return (
         <footer className="text-[#1B2F4F] font-fauna">
-            <div className="mx-auto grid grid-cols-1 gap-10 container py-14 md:grid-cols-3">
+            <div className="mx-auto grid grid-cols-1 gap-10 container py-14 md:grid-cols-3 px-4 md:px-2">
                 <div>
                     <Image
                         src={logo}

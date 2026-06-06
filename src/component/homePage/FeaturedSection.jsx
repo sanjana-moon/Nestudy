@@ -1,5 +1,7 @@
+import Link from "next/link";
 import RoomCard from "../RoomCard";
 import ScrollReveal from "./ScrollReveal";
+import { Button } from "@heroui/react";
 
 const FeaturedSection = async () => {
 
@@ -25,9 +27,18 @@ const FeaturedSection = async () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {rooms.map((room, index) => (
                     <ScrollReveal key={room._id}>
-                        <RoomCard room={room}/>
+                        <RoomCard room={room} />
                     </ScrollReveal>
                 ))}
+            </div>
+            <div className="flex items-center justify-center m-5 mt-10">
+                <Link href="/all-rooms">
+                    <Button
+                        className="rounded-md bg-[#816c4d] px-6 py-3 text-white"
+                    >
+                        Explore Rooms
+                    </Button>
+                </Link>
             </div>
         </section>
     );

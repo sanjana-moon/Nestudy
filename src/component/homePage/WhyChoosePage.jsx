@@ -56,9 +56,8 @@ const FeatureCard = ({ feature, reverse }) => {
         <animated.div
             ref={ref}
             style={animation}
-            className={`flex flex-col items-center gap-15 p-8 mb-15] md:flex-row ${reverse ? "md:flex-row-reverse" : ""}`}>
+            className={`flex flex-col items-center gap-5 md:gap-8 lg:gap-10 xl:gap-15 p-8 mb-4 md:mb-8 lg:mb-10 xl:mb-15 md:flex-row ${reverse ? "md:flex-row-reverse" : ""}`}>
 
-            {/* Image */}
             <div className="w-full md:w-1/2">
                 <Image
                     src={feature.image}
@@ -68,13 +67,10 @@ const FeatureCard = ({ feature, reverse }) => {
                     className="h-75 w-full rounded-2xl object-cover"
                 />
             </div>
-
             <div className="w-full md:w-1/2 rounded-3xl h-75 flex flex-col items-center justify-center">
-
                 <h2 className="font-cinzel text-3xl font-bold text-[#1B2F4F]">
                     {feature.title}
                 </h2>
-
                 <p className="mt-5 text-lg leading-8 text-gray-600 font-fauna">
                     {feature.description}
                 </p>
@@ -88,34 +84,27 @@ const FeatureCard = ({ feature, reverse }) => {
 const WhyChooseNestudy = () => {
     return (
         <section className="bg-[#f8f5f0] px-6 py-20">
-
             <div className="mx-auto max-w-3xl text-center">
-
                 <p className="mb-3 text-lg uppercase tracking-[0.3em] text-[#816c4d] ">
                     Why Choose Nestudy
                 </p>
-
                 <h1 className="font-cinzel text-3xl font-bold text-[#1B2F4F] md:text-5xl font-cinzel">
                     Designed For Better Learning
                 </h1>
-
                 <p className="mt-6 text-lg leading-8 text-gray-600 font-fauna">
                     Discover study spaces that help you focus deeply,
                     stay productive, and learn comfortably.
                 </p>
-
             </div>
-
-            <div className="mx-auto mt-20 flex max-w-7xl flex-col gap-16">
-
-                {features.map((feature, index) => (
-                    <FeatureCard
-                        key={index}
-                        feature={feature}
-                        reverse={index % 2 !== 0}
-                    />
-                ))}
-
+            <div className="mx-auto flex max-w-7xl flex-col gap-5 md:gap-8 lg:gap-10 xl:gap-15">
+                {
+                    features.map((feature, index) => (
+                        <FeatureCard
+                            key={index}
+                            feature={feature}
+                            reverse={index % 2 !== 0}
+                        />
+                    ))}
             </div>
         </section>
     );
