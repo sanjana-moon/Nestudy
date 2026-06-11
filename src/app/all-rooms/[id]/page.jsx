@@ -1,4 +1,4 @@
-import { Button, Card } from "@heroui/react";
+import { Avatar, Button, Card } from "@heroui/react";
 import Image from "next/image";
 import { MdOutlinePeopleAlt } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
@@ -38,7 +38,6 @@ const RoomDetailsPage = async ({ params }) => {
     const { token } = await auth.api.getToken({
         headers: await headers()
     })
-    console.log(token);
 
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/room/${id}`, {
@@ -72,16 +71,14 @@ const RoomDetailsPage = async ({ params }) => {
     return (
         <div className="min-h-[80vh] bg-linear-to-b from-[#fdfaf5] to-[#f5efe6] py-14 px-4">
             <div className="container mx-auto">
-
                 <Card className="grid lg:grid-cols-2 gap-10 p-5 lg:p-8 rounded-xl shadow-md bg-[#f8f5f0] font-fauna transition-all duration-300 hover:shadow-xl">
-
-                    <div className="w-full overflow-hidden rounded-lg">
+                    <div className="w-full overflow-hidden rounded-lg my-auto">
                         <Image
                             alt={roomName}
                             src={imageUrl}
                             height={700}
                             width={700}
-                            className="w-full h-125 object-cover rounded-lg transition-transform duration-500 hover:scale-105"
+                            className="w-full h-130 object-cover rounded-lg transition-transform duration-500 hover:scale-105"
                         />
                     </div>
 
@@ -142,12 +139,22 @@ const RoomDetailsPage = async ({ params }) => {
                                 / hour
                             </span>
                         </div>
-                        <p className="text-gray-500 text-sm">
-                            Managed by{" "}
-                            <span className="font-bold text-[#6b573c]">
-                                {ownerName}
-                            </span>
-                        </p>
+                        <div className="flex gap-2 items-center">
+                            <Avatar>
+                                <Avatar.Image
+                                    referrerPolicy="no-referrer"
+                                    alt={ownerName}
+                                    src={ownerImage}
+                                />
+                                <Avatar.Fallback>{ownerName?.charAt(0)}</Avatar.Fallback>
+                            </Avatar>
+                            <p className="text-gray-500 text-sm">
+                                Managed by{" "}
+                                <span className="font-bold text-[#6b573c]">
+                                    {ownerName}
+                                </span>
+                            </p>
+                        </div>
                         <p>
                             Created At:{" "}
                             {new Date(createdAt).toLocaleString()}

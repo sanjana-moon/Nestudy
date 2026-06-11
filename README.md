@@ -224,7 +224,6 @@ in your browser.
 | npm run dev   | Start development server |
 | npm run build | Create production build  |
 | npm start     | Start production server  |
-| npm run lint  | Run ESLint               |
 
 ---
 

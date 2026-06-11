@@ -81,23 +81,30 @@ export default function ReviewPage() {
           {[...reviews, ...reviews].map((item, index) => (
             <div
               key={index}
-              className="w-[280px] p-5 rounded-2xl border shadow-sm bg-white hover:shadow-lg transition"
+              className="w-[280px] p-5 rounded-2xl border shadow-sm bg-white transition-all duration-300 hover:scale-105 hover:shadow-xl hover:z-10 relative  "
             >
               <div className="flex text-yellow-400 mb-3">
                 {Array.from({ length: item.rating }).map((_, i) => (
                   <span key={i}>★</span>
                 ))}
               </div>
-              <p className="text-gray-600 mb-4">"{item.text}"</p>
+
+              <p className="text-gray-600 mb-4">
+                "{item.text}"
+              </p>
+
               <div className="border-t pt-3">
-                <h4 className="font-semibold text-gray-800 font-cinzel">{item.name}</h4>
-                <p className="text-sm text-gray-500">{item.role}</p>
+                <h4 className="font-semibold text-gray-800 font-cinzel">
+                  {item.name}
+                </h4>
+                <p className="text-sm text-gray-500">
+                  {item.role}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
-
     </section>
   )
 }

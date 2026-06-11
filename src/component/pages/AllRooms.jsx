@@ -11,6 +11,7 @@ const AMENITIES = ["wifi", "projector", "whiteboard", "ac", "outlets", "quiet"];
 
 const AllRooms = () => {
     const [rooms, setRooms] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [amenities, setAmenities] = useState([]);
     const [minPrice, setMinPrice] = useState("");
@@ -32,18 +33,29 @@ const AllRooms = () => {
     }, []);
 
     const fetchRooms = async () => {
-        const params = new URLSearchParams();
-        if (search) params.append("search", search);
-        if (amenities.length) params.append("amenities", amenities.join(","));
-        if (minPrice) params.append("minPrice", minPrice);
-        if (maxPrice) params.append("maxPrice", maxPrice);
-        if (floor) params.append("floor", floor);
+        try {
+            setLoading(true);
 
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URI}/room?${params.toString()}`
-        );
-        const data = await res.json();
-        setRooms(data);
+            const params = new URLSearchParams();
+
+            if (search) params.append("search", search);
+            if (amenities.length) params.append("amenities", amenities.join(","));
+            if (minPrice) params.append("minPrice", minPrice);
+            if (maxPrice) params.append("maxPrice", maxPrice);
+            if (floor) params.append("floor", floor);
+
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URI}/room?${params.toString()}`
+            );
+
+            const data = await res.json();
+
+            setRooms(data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -240,7 +252,25 @@ const AllRooms = () => {
                         </div>
                     </div>
                     <div className="lg:col-span-3">
-                        {rooms.length === 0 ? (
+                        {loading ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                                {[...Array(6)].map((_, index) => (
+                                    <div
+                                        key={index}
+                                        className="h-[420px] rounded-2xl bg-white border animate-pulse"
+                                    >
+                                        <div className="h-48 bg-gray-200 rounded-t-2xl" />
+                                        <div className="p-4 space-y-3">
+                                            <div className="h-6 bg-gray-200 rounded w-3/4" />
+                                            <div className="h-4 bg-gray-200 rounded w-1/2" />
+                                            <div className="h-4 bg-gray-200 rounded w-full" />
+                                            <div className="h-4 bg-gray-200 rounded w-5/6" />
+                                            <div className="h-10 bg-gray-200 rounded mt-6" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : rooms.length === 0 ? (
                             <div className="flex flex-col items-center justify-center min-h-[40vh] text-gray-500">
                                 <p className="text-xl font-semibold">No rooms found</p>
                                 <p className="text-sm mt-1">Try changing search or filters</p>

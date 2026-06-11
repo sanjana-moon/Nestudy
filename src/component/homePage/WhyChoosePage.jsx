@@ -8,27 +8,28 @@ const features = [
     {
         title: "Peaceful Study Environment",
         description:
-            "Find quiet and distraction-free spaces designed to help you stay focused and productive throughout your study sessions.",
+            "Find quiet, distraction-free spaces meticulously designed to help you stay deeply focused and highly productive. Whether you are prepping for finals or working on a major project, our layout minimizes interruptions so you can get into the zone.",
         image:
             "https://images.unsplash.com/photo-1763890965393-1cea435581ab?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
         title: "Book Anytime, Anywhere",
         description:
-            "Reserve study rooms instantly from your device and access comfortable spaces whenever you need them.",
+            "Reserve your ideal study room instantly right from your mobile device or laptop. With our seamless, real-time booking system, you can secure comfortable and reliable spaces whenever inspiration strikes, 24/7.",
         image:
             "https://images.pexels.com/photos/29379902/pexels-photo-29379902.jpeg?auto=compress&cs=tinysrgb&w=1200",
     },
     {
         title: "Built For Students",
         description:
-            "Nestudy is designed for learners who need calm, reliable, and modern study environments to perform at their best.",
-        image: "https://images.pexels.com/photos/8199659/pexels-photo-8199659.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            "Nestudy is tailor-made for learners, researchers, and academic high-achievers who require calm, reliable, and modern environments. We understand student needs, which is why we offer the ultimate setup to help you perform at your absolute best.",
+        image:
+            "https://images.pexels.com/photos/8199659/pexels-photo-8199659.jpeg?auto=compress&cs=tinysrgb&w=1200"
     },
     {
         title: "Modern & Comfortable Spaces",
         description:
-            "Enjoy clean interiors, proper lighting, Wi-Fi access, and study-friendly environments for deep focus.",
+            "Enjoy beautifully curated interiors featuring ergonomic seating, optimized lighting, high-speed Wi-Fi access, and power outlets at every desk. It’s a modern, premium environment built specifically to support extended periods of deep focus.",
         image:
             "https://images.unsplash.com/photo-1739918075668-fc7844c6d921?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },

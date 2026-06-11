@@ -37,7 +37,7 @@ const MyProfilePage = () => {
                     <h2 className="card-title">Name: {user?.name}</h2>
                     <p>Email: {user?.email}</p>
                     <div className="card-actions">
-                        <UpdateProfile/>
+                        <UpdateProfile user={user}/>
                     </div>
                 </div>
             </div>

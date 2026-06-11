@@ -1,10 +1,12 @@
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 import { CgProfile } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
 import { LuSaveAll } from "react-icons/lu";
 import { TiCancelOutline } from "react-icons/ti";
+import { toast } from "react-toastify";
 
-const UpdateProfile = () => {
+const UpdateProfile = ({ user }) => {
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
@@ -15,13 +17,15 @@ const UpdateProfile = () => {
             name,
             image,
         })
+        toast.success("profile updated successfully")
+        redirect('/my-profile')
     }
 
     return (
         <div className=" flex items-center justify-center">
             <button className="btn bg-[#816c4d] text-white px-10 flex items-center gap-2 justify-center mx-auto rounded-sm my-3 py-1" onClick={() => document.getElementById('my_modal_5').showModal()}>
                 <FaEdit /> Edit profile</button>
-            <dialog id="my_modal_5" className="modal modal-bottom m-auto p-8 rounded-sm sm:modal-middle">
+            <dialog id="my_modal_5" className="modal modal-bottom m-auto p-8 rounded-md sm:modal-middle">
                 <div className="modal-box">
                     <div className="rounded-xl bg-white p-5 md:p-10 lg:p-20">
                         <CgProfile className="text-5xl mb-3 text-[#384959]" />
@@ -36,6 +40,7 @@ const UpdateProfile = () => {
                                 <input
                                     type="name"
                                     name="name"
+                                    defaultValue={user?.name}
                                     className="input w-full"
                                     placeholder="Enter your Name"
                                 />
@@ -46,11 +51,14 @@ const UpdateProfile = () => {
                                 <input
                                     type="url"
                                     name="image"
+                                    defaultValue={user?.image}
                                     className="input w-full"
                                     placeholder="Enter your image URL"
                                 />
                             </fieldset>
-                            <button className="btn w-full bg-[#816c4d] text-white rounded-sm py-1 flex items-center justify-center gap-2">
+                            <button
+                                className="btn w-full bg-[#816c4d] text-white rounded-sm py-1 flex items-center justify-center gap-2"
+                                onClick={() => document.getElementById('my_modal_5').close()}>
                                 <LuSaveAll /> Save changes
                             </button>
                         </form>

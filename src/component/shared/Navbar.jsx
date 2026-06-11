@@ -47,10 +47,6 @@ const Navbar = () => {
 
     const loggedInLinks = (
         <>
-            <li className={`${pathname === "/my-profile" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
-                <Link href="/my-profile">My Profile</Link>
-            </li>
-
             <li className={`${pathname === "/add-room" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/add-room">Add Room</Link>
             </li>
@@ -61,6 +57,10 @@ const Navbar = () => {
 
             <li className={`${pathname === "/my-bookings" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
                 <Link href="/my-bookings">My Bookings</Link>
+            </li>
+
+            <li className={`${pathname === "/my-profile" ? "border-b-2 border-[#1B2F4F]" : ""}`}>
+                <Link href="/my-profile">My Profile</Link>
             </li>
         </>
     );
