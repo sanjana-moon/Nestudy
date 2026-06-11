@@ -71,7 +71,7 @@ const MembershipPage = () => {
                 </p>
             </div>
             <ScrollReveal>
-                <div className="mx-auto mt-16 grid max-w-7xl gap-8 md:grid-cols-3">
+                <div className="mx-auto mt-16 grid max-w-7xl gap-8 lg:grid-cols-3">
                     {plans.map((plan, index) => (
                         <Card
                             key={index}

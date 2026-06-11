@@ -36,7 +36,6 @@ const features = [
 ];
 
 const FeatureCard = ({ feature, reverse }) => {
-
     const [ref, inView] = useInView({
         triggerOnce: true,
         threshold: 0.2,
@@ -57,25 +56,23 @@ const FeatureCard = ({ feature, reverse }) => {
         <animated.div
             ref={ref}
             style={animation}
-            className={`flex flex-col items-center gap-5 md:gap-8 lg:gap-10 xl:gap-15 p-8 mb-4 md:mb-8 lg:mb-10 xl:mb-15 md:flex-row ${reverse ? "md:flex-row-reverse" : ""}`}>
-
-            <div className="w-full md:w-1/2">
+            className={`flex flex-col items-center gap-5 lg:gap-10 xl:gap-15 lg:mb-10 xl:mb-15 lg:mt-10 xl:mt-15 lg:flex-row ${reverse ? "lg:flex-row-reverse" : ""}`}>
+            <div className="w-full mb-6">
                 <Image
                     src={feature.image}
                     alt={feature.title}
                     width={700}
                     height={500}
-                    className="h-75 w-full rounded-2xl object-cover"
+                    className="h-75 md:h-100 lg:h-75 w-full rounded-2xl object-cover"
                 />
             </div>
-            <div className="w-full md:w-1/2 rounded-3xl h-75 flex flex-col items-center justify-center">
-                <h2 className="font-cinzel text-3xl font-bold text-[#1B2F4F]">
+            <div className="w-full rounded-3xl lg:h-75 flex flex-col lg:items-center lg:justify-center mb-10">
+                <h2 className="font-cinzel text-3xl font-bold text-[#1B2F4F] text-center">
                     {feature.title}
                 </h2>
-                <p className="mt-5 text-lg leading-8 text-gray-600 font-fauna">
+                <p className="mt-5 text-lg leading-8 text-gray-600 font-fauna text-justify">
                     {feature.description}
                 </p>
-
             </div>
 
         </animated.div>
@@ -92,12 +89,12 @@ const WhyChooseNestudy = () => {
                 <h1 className="font-cinzel text-3xl font-bold text-[#1B2F4F] md:text-5xl font-cinzel">
                     Designed For Better Learning
                 </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600 font-fauna">
+                <p className="mt-6 text-lg leading-8 text-gray-600 font-fauna mb-8">
                     Discover study spaces that help you focus deeply,
                     stay productive, and learn comfortably.
                 </p>
             </div>
-            <div className="mx-auto flex max-w-7xl flex-col gap-5 md:gap-8 lg:gap-10 xl:gap-15">
+            <div className="mx-auto flex max-w-7xl flex-col gap-8">
                 {
                     features.map((feature, index) => (
                         <FeatureCard
