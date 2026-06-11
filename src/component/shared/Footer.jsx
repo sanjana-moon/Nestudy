@@ -17,14 +17,14 @@ const Footer = () => {
     return (
         <footer className="text-[#1B2F4F] font-fauna">
             <div className="mx-auto grid grid-cols-1 gap-10 container py-14 md:grid-cols-3 px-4 md:px-2">
-                <div>
+                <div className="mx-auto lg:mx-0">
                     <Image
                         src={logo}
                         alt="Nestudy Logo"
                         width={180}
                         height={120}
-                        className="mb-4 w-auto" />
-                    <p className="max-w-sm text-sm leading-7 italic">
+                        className="mb-4 w-auto mx-auto lg:mx-0" />
+                    <p className="max-w-sm text-sm leading-7 italic text-justify lg:text-start">
                         "Nestudy pairs dedicated scholars with refined, quiet sanctuaries—cultivating the ideal environment for deep focus and academic growth."
                     </p>
                 </div>
@@ -40,22 +40,22 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div>
+                <div className="text-center lg:text-start">
                     <h3 className="mb-5 text-xl font-semibold font-cinzel">
                         Contact
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 justify-center lg:justify-start">
                             <MdEmail className="text-lg" />
                             <p>support@nestudy.com</p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 justify-center lg:justify-start">
                             <FaPhoneAlt className="text-sm" />
                             <p>+880 1234-567890</p>
                         </div>
                     </div>
 
-                    <div className="mt-6 flex items-center gap-6 md:gap-4">
+                    <div className="mt-6 flex items-center gap-6 md:gap-4 justify-center lg:justify-start">
                         <a href="#"
                             className="rounded-full border border-[#816c4d] p-2 transition hover:bg-[#816c4d]"                        >
                             <FaFacebookF className="text-sm" />
